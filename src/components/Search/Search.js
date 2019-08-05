@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './search.scss';
+import {unsplash} from './unsplash'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -10,8 +11,15 @@ export default class Search extends React.Component {
         }
     };
     searchInputChange = ({ target }) => {
-        console.log(target.value);
         this.setState({value: target.value});
+        // console.log(this.state.value)
+    };
+    searchButtonClick = () => {
+        unsplash.search.photos(this.state.value, 1)
+            .then(result => result.json())
+            .then(result => {
+                console.log(result)
+            });
     };
     render() {
         return (
@@ -26,6 +34,7 @@ export default class Search extends React.Component {
                     />
                     <button
                         className={"search"}
+                        onClick={this.searchButtonClick}
                     >Search</button>
                 </div>
 
