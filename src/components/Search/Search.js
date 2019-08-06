@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './search.scss';
 import {unsplash} from './unsplash'
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
+import {connect} from "react-redux";
 
-export default class Search extends React.Component {
+class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,31 +27,50 @@ export default class Search extends React.Component {
                     urls.push(value.urls['small'])
                 });
                 console.log(urls);
-                this.setState({imageUrls: urls});
+                this.props.addImage(urls);
+                // this.setState({imageUrls: urls});
             });
     };
     render() {
+        console.log(this.props);
         return (
-            <div>
-                <div className={"search-container"}>
-                    <h1 className={"search-container__item"}>Image search</h1>
-                    <div className="search-container__item">
-                        <input
-                            className={"input"}
-                            placeholder={"Search image"}
-                            onChange={this.searchInputChange}
-                            value={this.state.value}
-                        />
-                        <button
-                            className={"search"}
-                            onClick={this.searchButtonClick}
-                        >Search</button>
-                    </div>
-                </div>
-                <div>
-                    <PhotoContainer imageUrls = {this.state.imageUrls}/>
+            <div className={"search-container"}>
+                <h1 className={"search-container__item"}>Image search</h1>
+                <div className="search-container__item">
+                    <input
+                        className={"input"}
+                        placeholder={"Search image"}
+                        onChange={this.searchInputChange}
+                        value={this.state.value}
+                    />
+                    <button
+                        className={"search"}
+                        onClick={this.searchButtonClick}
+                    >Search</button>
                 </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    const { images } = state;
+    return { images}
+};
+
+const addImageAction = (payload) =>  {
+    return {
+        type: 'ADD_IMAGE',
+        payload
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addImage(data){
+            dispatch(addImageAction(data))
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
