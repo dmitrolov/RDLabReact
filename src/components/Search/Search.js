@@ -1,23 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './search.scss';
 import {unsplash} from './unsplash'
-import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import {connect} from "react-redux";
+import { addImageAction } from "../../redusers/Search/actions";
 
 class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: "",
-            imageUrls: [],
         }
     };
     searchInputChange = ({ target }) => {
         this.setState({value: target.value});
-        // console.log(this.state.value)
     };
     searchButtonClick = () => {
+        // + unsplash to services
         unsplash.search.photos(this.state.value, 1)
             .then(result => result.json())
             .then(result => {
@@ -28,7 +26,6 @@ class Search extends React.Component {
                 });
                 console.log(urls);
                 this.props.addImage(urls);
-                // this.setState({imageUrls: urls});
             });
     };
     render() {
@@ -56,13 +53,6 @@ class Search extends React.Component {
 const mapStateToProps = (state) => {
     const { images } = state;
     return { images}
-};
-
-const addImageAction = (payload) =>  {
-    return {
-        type: 'ADD_IMAGE',
-        payload
-    }
 };
 
 const mapDispatchToProps = (dispatch) => {

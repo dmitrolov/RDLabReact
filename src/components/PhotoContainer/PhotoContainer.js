@@ -20,7 +20,7 @@ class PhotoContainer extends Component {
     }
 
     render() {
-        console.log()
+        console.log(this.props)
         const images = this.props.images.map(img => {
             return <img key={Math.random()} src={img} className={'photo-container__item'}/>
         });
