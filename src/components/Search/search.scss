@@ -1,0 +1,16 @@
+.search-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    &__item {
+        margin: 0;
+        padding: 1em;
+        width: 70vw;
+    }
+}
