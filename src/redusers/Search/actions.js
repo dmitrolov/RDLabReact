@@ -7,3 +7,7 @@ export const addImageAction = (payload) =>  {
         payload
     }
 };
+
+
+export const getImages = (page) => {}
+

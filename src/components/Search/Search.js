@@ -11,11 +11,13 @@ class Search extends React.Component {
             value: "",
         }
     };
+    // add props types and props default
     searchInputChange = ({ target }) => {
         this.setState({value: target.value});
     };
     searchButtonClick = () => {
         // + unsplash to services
+        //<editor-fold desc="to search/actions">
         unsplash.search.photos(this.state.value, 1)
             .then(result => result.json())
             .then(result => {
@@ -23,10 +25,12 @@ class Search extends React.Component {
                 result.results.forEach(value => {
                     // console.log(value.urls)
                     urls.push(value.urls['small'])
+                    // add id for key
                 });
                 console.log(urls);
                 this.props.addImage(urls);
             });
+        //</editor-fold>
     };
     render() {
         console.log(this.props);
