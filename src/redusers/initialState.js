@@ -1,5 +1,11 @@
 const initialState = {
-    images: []
+    images: {},
+    activeImage: {
+        id: '0',
+        urls: {
+            small: ""
+        }
+    },
 };
 
 export default initialState;

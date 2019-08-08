@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './search.scss';
-import {unsplash} from './unsplash'
 import {connect} from "react-redux";
-import { addImageAction } from "../../redusers/Search/actions";
+import { Action, ADD_IMAGES } from "../../redusers/Search/actions";
+import ImageService from "./../../services/imageService"
+const Unsplash = require('unsplash-js').default;
 
 class Search extends React.Component {
     constructor(props) {
@@ -16,21 +18,10 @@ class Search extends React.Component {
         this.setState({value: target.value});
     };
     searchButtonClick = () => {
-        // + unsplash to services
-        //<editor-fold desc="to search/actions">
-        unsplash.search.photos(this.state.value, 1)
-            .then(result => result.json())
-            .then(result => {
-                const urls = [];
-                result.results.forEach(value => {
-                    // console.log(value.urls)
-                    urls.push(value.urls['small'])
-                    // add id for key
-                });
-                console.log(urls);
-                this.props.addImage(urls);
-            });
-        //</editor-fold>
+        const unsplash = new ImageService();
+        unsplash.getImages(this.state.value, 1).then((result) => {
+            this.props.addImageDataToStore(result)
+        });
     };
     render() {
         console.log(this.props);
@@ -46,7 +37,7 @@ class Search extends React.Component {
                     />
                     <button
                         className={"search"}
-                        onClick={this.searchButtonClick}
+                        onClick={this.searchButtonClick.bind(this)}
                     >Search</button>
                 </div>
             </div>
@@ -61,8 +52,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addImage(data){
-            dispatch(addImageAction(data))
+        addImageDataToStore(data){
+            dispatch(Action(data, ADD_IMAGES))
         }
     }
 };
