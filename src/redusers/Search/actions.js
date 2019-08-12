@@ -2,8 +2,6 @@ export const ADD_IMAGES = "ADD_IMAGES";
 export const ADD_ACTIVE_IMAGES = "ADD_ACTIVE_IMAGES";
 
 export const Action = (payload, actionType) => {
-    console.log('Payload', payload);
-    console.log('Type', actionType);
     return {
         type: actionType,
         payload

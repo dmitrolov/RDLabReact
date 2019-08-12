@@ -11,11 +11,9 @@ export default class ImageService {
         });
     }
     getImages = (keyword, page = 1) => {
-        console.log(keyword, page, this);
          return this.instance.search.photos(keyword, page)
             .then(result => result.json())
             .then(result => {
-                console.log(result);
                 // const urls = [];
                 // result.results.forEach(value => {
                 //     urls.push(value.urls['small'])

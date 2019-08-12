@@ -3,10 +3,16 @@ import {connect} from "react-redux";
 
 class ActiveImage extends Component {
     render() {
-        console.log(this.props);
+        console.log('Active Image props', this.props);
+        const imageTags = this.props.activeImage.tags.map((value) => {
+            return <li>{value.title}</li>
+        })
         return (
             <div>
                 <img src={this.props.activeImage.urls.small} alt=""/>
+                <ul>
+                    {imageTags}
+                </ul>
             </div>
         );
     }

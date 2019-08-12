@@ -4,27 +4,32 @@ import './search.scss';
 import {connect} from "react-redux";
 import { Action, ADD_IMAGES } from "../../redusers/Search/actions";
 import ImageService from "./../../services/imageService"
-const Unsplash = require('unsplash-js').default;
 
 class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: "",
-        }
+        };
+        this.unsplash = new ImageService();
+        this.page = 1;
+        window.addEventListener("scroll", () => {
+            if (window.innerHeight + document.documentElement.scrollTop -16 >= document.documentElement.offsetHeight) {
+                this.searchButtonClick();
+            }
+        })
     };
     // add props types and props default
     searchInputChange = ({ target }) => {
         this.setState({value: target.value});
     };
     searchButtonClick = () => {
-        const unsplash = new ImageService();
-        unsplash.getImages(this.state.value, 1).then((result) => {
-            this.props.addImageDataToStore(result)
+        this.unsplash.getImages(this.state.value, this.page).then((result) => {
+            this.props.addImageDataToStore(result);
         });
+        this.page++;
     };
     render() {
-        console.log(this.props);
         return (
             <div className={"search-container"}>
                 <h1 className={"search-container__item"}>Image search</h1>
