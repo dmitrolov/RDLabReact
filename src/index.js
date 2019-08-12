@@ -1,24 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './index.scss';
-import Home from "./components/App";
-import { Provider } from 'react-redux';
-//<editor-fold desc="to store">
 import App from "./components/App";
 import { Provider } from 'react-redux';
-import {createStore} from "redux";
-import rootReducer from './redusers/rootReducer'
-
-const store = createStore(rootReducer);
-//</editor-fold>
-
-ReactDOM.render(
-    <Provider store={store}>
-        <Home />
+import store from './store'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import PhotoContainer from "./components/PhotoContainer/PhotoContainer";
+import ActiveImage from "./components/ActiveImage/ActiveImage"
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Router>
+            <div>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/active/">Active Image</Link>
+                        </li>
+                        <li>
+                            <Link to="/PhotoContainer/">PhotoContainer</Link>
+                        </li>
+                    </ul>
+                </nav>
+
+                <Route path="/" exact component={App} />
+                <Route path={"/active/"} component={ActiveImage} />
+                <Route path="/PhotoContainer/" component={PhotoContainer} />
+            </div>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

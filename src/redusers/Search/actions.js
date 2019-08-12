@@ -1,10 +1,24 @@
-import { ADD_IMAGES } from "./actionTypes";
+export const ADD_IMAGES = "ADD_IMAGES";
+export const ADD_ACTIVE_IMAGES = "ADD_ACTIVE_IMAGES";
 
-
-export const addImageAction = (payload) =>  {
+export const Action = (payload, actionType) => {
     return {
-        type: ADD_IMAGES,
+        type: actionType,
         payload
     }
 };
-export const getImages = (page) => {}
+// export const addImageAction = (payload) =>  {
+//     console.log('payload', payload);
+//     return {
+//         type: ADD_IMAGES,
+//         payload
+//     }
+// };
+// export const addActiveImageAction = (payload) =>  {
+//     console.log('payload', payload);
+//     return {
+//         type: ADD_ACTIVE_IMAGES,
+//         payload
+//     }
+// };
+// export const getImages = (page) => {}

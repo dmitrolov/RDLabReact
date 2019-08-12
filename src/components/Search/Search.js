@@ -1,39 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './search.scss';
-import {unsplash} from './unsplash'
 import {connect} from "react-redux";
-import { addImageAction } from "../../redusers/Search/actions";
+import { Action, ADD_IMAGES } from "../../redusers/Search/actions";
+import ImageService from "./../../services/imageService"
 
 class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: "",
-        }
+        };
+        this.unsplash = new ImageService();
+        this.page = 1;
+        window.addEventListener("scroll", () => {
+            if (window.innerHeight + document.documentElement.scrollTop -16 >= document.documentElement.offsetHeight) {
+                this.searchButtonClick();
+            }
+        })
     };
     // add props types and props default
     searchInputChange = ({ target }) => {
         this.setState({value: target.value});
     };
     searchButtonClick = () => {
-        // + unsplash to services
-        //<editor-fold desc="to search/actions">
-        unsplash.search.photos(this.state.value, 1)
-            .then(result => result.json())
-            .then(result => {
-                const urls = [];
-                result.results.forEach(value => {
-                    // console.log(value.urls)
-                    urls.push(value.urls['small'])
-                    // add id for key
-                });
-                console.log(urls);
-                this.props.addImage(urls);
-            });
-        //</editor-fold>
+        this.unsplash.getImages(this.state.value, this.page).then((result) => {
+            this.props.addImageDataToStore(result);
+        });
+        this.page++;
     };
     render() {
-        console.log(this.props);
         return (
             <div className={"search-container"}>
                 <h1 className={"search-container__item"}>Image search</h1>
@@ -46,7 +42,7 @@ class Search extends React.Component {
                     />
                     <button
                         className={"search"}
-                        onClick={this.searchButtonClick}
+                        onClick={this.searchButtonClick.bind(this)}
                     >Search</button>
                 </div>
             </div>
@@ -61,8 +57,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addImage(data){
-            dispatch(addImageAction(data))
+        addImageDataToStore(data){
+            dispatch(Action(data, ADD_IMAGES))
         }
     }
 };
