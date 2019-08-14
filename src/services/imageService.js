@@ -21,6 +21,19 @@ export default class ImageService {
                 // console.log(urls)
                 return result;
             });
+    };
+    getCollections = (keyword, page = 1) => {
+        return this.instance.search.collections(keyword, page)
+            .then(result => result.json())
+            .then(result => {
+                // const urls = [];
+                // result.results.forEach(value => {
+                //     urls.push(value.urls['small'])
+                // });
+                // console.log(urls)
+                return result;
+            });
     }
+
 
 }

@@ -4,7 +4,7 @@ import App from "./components/App";
 import { Provider } from 'react-redux';
 import store from './store'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import PhotoContainer from "./components/PhotoContainer/PhotoContainer";
+import Categories from "./components/Categories/Categories";
 import ActiveImage from "./components/ActiveImage/ActiveImage"
 
 ReactDOM.render(
@@ -20,14 +20,14 @@ ReactDOM.render(
                             <Link to="/active/">Active Image</Link>
                         </li>
                         <li>
-                            <Link to="/PhotoContainer/">PhotoContainer</Link>
+                            <Link to="/Categories/">Categories</Link>
                         </li>
                     </ul>
                 </nav>
 
                 <Route path="/" exact component={App} />
                 <Route path={"/active/"} component={ActiveImage} />
-                <Route path="/PhotoContainer/" component={PhotoContainer} />
+                <Route path="/Categories/" component={Categories} />
             </div>
         </Router>
     </Provider>,

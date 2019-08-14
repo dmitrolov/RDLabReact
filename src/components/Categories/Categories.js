@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './search.scss';
 import {connect} from "react-redux";
-import { Action, ADD_IMAGES } from "../../redusers/Search/actions";
+import { Action, ADD_CATEGORIES } from "../../redusers/Search/actions";
 import ImageService from "./../../services/imageService"
-import PhotoContainer from "../PhotoContainer/PhotoContainer";
+import CategoriesContainer from './../CategoriesContainer/CategoriesContainer'
 
-class Search extends React.Component {
+class Categories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,19 +24,21 @@ class Search extends React.Component {
         this.setState({value: target.value});
     };
     searchButtonClick = () => {
-        this.unsplash.getImages(this.state.value, this.page).then((result) => {
-            this.props.addImageDataToStore(result);
+        console.log("Categories props", this.props);
+        this.unsplash.getCollections(this.state.value, this.page).then((result) => {
+            console.log(result);
+            this.props.addCategoriesDataToStore(result);
         });
         this.page++;
     };
     render() {
         return (
             <div className={"search-container"}>
-                <h1 className={"search-container__item"}>Image search</h1>
+                <h1 className={"search-container__item"}>Categories search</h1>
                 <div className="search-container__item">
                     <input
                         className={"input"}
-                        placeholder={"Search image"}
+                        placeholder={"Search categories"}
                         onChange={this.searchInputChange}
                         value={this.state.value}
                     />
@@ -47,23 +47,23 @@ class Search extends React.Component {
                         onClick={this.searchButtonClick.bind(this)}
                     >Search</button>
                 </div>
-                <PhotoContainer/>
+                <CategoriesContainer/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    const { images } = state;
-    return { images}
+    const { categories } = state;
+    return { categories}
 };
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addImageDataToStore(data){
-            dispatch(Action(data, ADD_IMAGES))
+        addCategoriesDataToStore(data){
+            dispatch(Action(data, ADD_CATEGORIES))
         }
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(Categories)

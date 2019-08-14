@@ -1,0 +1,21 @@
+.cover-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1em;
+    &__photo {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+    }
+}
+.preview-photos {
+    display: flex;
+    justify-content: space-between;
+    &__item {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        padding: 0 1em;
+    }
+}
