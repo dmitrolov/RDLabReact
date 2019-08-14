@@ -21,9 +21,10 @@ export function categoriesReducer(state = initialState.categories, {type, payloa
         case ADD_CATEGORIES: {
             console.log('ADD_CATEGORIES', payload);
 
-            const newState =  {...payload};
-            newState.results = [...state.results, ...payload.results];
-            return newState;
+            // const newState =  {...payload};
+            // newState.results = [...state.results, ...payload.results];
+            // return newState;
+            return payload;
         }
         default:{
             return state
