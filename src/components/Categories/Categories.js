@@ -9,29 +9,33 @@ class Categories extends React.Component {
         super(props);
         this.state = {
             value: "",
+            titles: [],
         };
         this.unsplash = new ImageService();
-        console.log(this.unsplash);
-        this.page = 1;
-        window.addEventListener("scroll", () => {
-            if (window.innerHeight + document.documentElement.scrollTop -16 >= document.documentElement.offsetHeight) {
-                this.searchButtonClick();
-            }
+        this.unsplash.getPopularCollections().then((result) => {
+            this.setState({titles: result})
         })
     };
     // add props types and props default
     searchInputChange = ({ target }) => {
         this.setState({value: target.value});
     };
+    selectChange = ({ target }) => {
+        this.unsplash.getCollections(target.value, 1).then((result) => {
+            this.props.addCategoriesDataToStore(result);
+        });
+    };
     searchButtonClick = () => {
         console.log("Categories props", this.props);
-        this.unsplash.getCollections(this.state.value, this.page).then((result) => {
+        this.unsplash.getCollections(this.state.value, 1).then((result) => {
             console.log(result);
             this.props.addCategoriesDataToStore(result);
         });
-        this.page++;
     };
     render() {
+        const selectOptions = this.state.titles.map((value) => {
+            return <option value={value.title}>{value.title}</option>
+        });
         return (
             <div className={"search-container"}>
                 <h1 className={"search-container__item"}>Categories search</h1>
@@ -46,6 +50,10 @@ class Categories extends React.Component {
                         className={"search"}
                         onClick={this.searchButtonClick.bind(this)}
                     >Search</button>
+                    <select name="" id="" onChange={this.selectChange}>
+                        <option selected disabled value="">Choose category...</option>
+                        {selectOptions}
+                    </select>
                 </div>
                 <CategoriesContainer/>
             </div>

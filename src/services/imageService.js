@@ -22,6 +22,14 @@ export default class ImageService {
                 return result;
             });
     };
+    getPopularCollections = () => {
+        return this.instance.collections.listCollections(1, 10, "popular")
+            .then(result => result.json())
+            .then(result => {
+                return result;
+            });
+
+    };
     getCollections = (keyword, page = 1) => {
         return this.instance.search.collections(keyword, page)
             .then(result => result.json())
