@@ -1,5 +1,5 @@
 import initialState from '../initialState'
-import {ADD_ACTIVE_IMAGES, ADD_IMAGES} from "./actions";
+import {ADD_ACTIVE_IMAGES, ADD_IMAGES, ADD_CATEGORIES} from "./actions";
 
 export function imagesReducer(state = initialState.images, {type, payload}) {
     switch (type) {
@@ -9,6 +9,21 @@ export function imagesReducer(state = initialState.images, {type, payload}) {
             const newState =  {...payload};
             newState.results = [...state.results, ...payload.results];
             return newState
+        }
+        default:{
+            return state
+        }
+
+    }
+}
+export function categoriesReducer(state = initialState.categories, {type, payload}) {
+    switch (type) {
+        case ADD_CATEGORIES: {
+            console.log('ADD_CATEGORIES', payload);
+
+            const newState =  {...payload};
+            newState.results = [...state.results, ...payload.results];
+            return newState;
         }
         default:{
             return state

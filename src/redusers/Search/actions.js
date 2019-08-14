@@ -1,5 +1,7 @@
 export const ADD_IMAGES = "ADD_IMAGES";
 export const ADD_ACTIVE_IMAGES = "ADD_ACTIVE_IMAGES";
+export const ADD_CATEGORIES = "ADD_CATEGORIES";
+
 
 export const Action = (payload, actionType) => {
     return {
