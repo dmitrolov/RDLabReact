@@ -14,9 +14,9 @@ class PhotoContainer extends Component {
         let imagesDOM = null;
         if (images !== undefined){
             imagesDOM = images.map(({id, urls, tags}) => {
-                return <Link to={"/active/"}>
+                return <Link to={"/active/"} key={id + new Date().getTime() + urls.small}>
                     <img
-                        key={id + new Date().getTime()}
+
                         src={urls.small}
                         className={'photo-container__item'}
                         onClick={() => {

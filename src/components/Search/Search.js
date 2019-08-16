@@ -6,7 +6,7 @@ import { Action, ADD_IMAGES } from "../../redusers/Search/actions";
 import ImageService from "./../../services/imageService"
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 
-class Search extends React.Component {
+export class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +52,12 @@ class Search extends React.Component {
         );
     }
 }
+Search.propTypes = {
+    value: PropTypes.string
+};
+Search.defaultProps = {
 
+};
 const mapStateToProps = (state) => {
     const { images } = state;
     return { images}
