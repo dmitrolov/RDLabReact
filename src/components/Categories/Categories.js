@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import { Action, ADD_CATEGORIES } from "../../redusers/Search/actions";
 import ImageService from "./../../services/imageService"
 import CategoriesContainer from './../CategoriesContainer/CategoriesContainer'
+import Navigation from "../Navigation/Navigation";
 
 class Categories extends React.Component {
     constructor(props) {
@@ -33,11 +34,12 @@ class Categories extends React.Component {
         });
     };
     render() {
-        const selectOptions = this.state.titles.map((value) => {
-            return <option value={value.title}>{value.title}</option>
+        const selectOptions = this.state.titles.map((value, index) => {
+            return <option key={index + value} value={value.title}>{value.title}</option>
         });
         return (
             <div className={"search-container"}>
+                <Navigation/>
                 <h1 className={"search-container__item"}>Categories search</h1>
                 <div className="search-container__item">
                     <input
@@ -50,8 +52,8 @@ class Categories extends React.Component {
                         className={"search"}
                         onClick={this.searchButtonClick.bind(this)}
                     >Search</button>
-                    <select name="" id="" onChange={this.selectChange}>
-                        <option selected disabled value="">Choose category...</option>
+                    <select name="" id="" onChange={this.selectChange} defaultValue={'0'}>
+                        <option hidden disabled value="0">Choose category...</option>
                         {selectOptions}
                     </select>
                 </div>

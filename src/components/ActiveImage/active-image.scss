@@ -1,0 +1,19 @@
+.active-image-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em;
+    &__image {
+
+    }
+    &__tags {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        li {
+            padding: 0.2em;
+            font-size: 2em
+        }
+    }
+}

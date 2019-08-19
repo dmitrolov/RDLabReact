@@ -34,14 +34,14 @@ export default class ImageService {
         return this.instance.search.collections(keyword, page)
             .then(result => result.json())
             .then(result => {
-                // const urls = [];
-                // result.results.forEach(value => {
-                //     urls.push(value.urls['small'])
-                // });
-                // console.log(urls)
                 return result;
             });
-    }
-
-
+    };
+    getImageById = (id) => {
+        return this.instance.photos.getPhoto(id)
+            .then(result => result.json())
+            .then(result => {
+                return result;
+            });
+    };
 }

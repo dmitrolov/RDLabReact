@@ -9,12 +9,14 @@ class PhotoContainer extends Component {
     static propTypes = {
         images: PropTypes.object.isRequired
     };
+
     render() {
+
         const images = this.props.images.results;
         let imagesDOM = null;
         if (images !== undefined){
             imagesDOM = images.map(({id, urls, tags}) => {
-                return <Link to={"/active/"} key={id + new Date().getTime() + urls.small}>
+                return <Link to={"/active/" + id} key={id + new Date().getTime() + urls.small}>
                     <img
 
                         src={urls.small}
@@ -27,7 +29,11 @@ class PhotoContainer extends Component {
             });
         }
         return (
-            <div>
+            <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+            }}>
                 {imagesDOM}
             </div>
 

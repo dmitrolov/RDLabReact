@@ -1,9 +1,11 @@
 export const ADD_IMAGES = "ADD_IMAGES";
+export const REMOVE_IMAGES = "REMOVE_IMAGES";
 export const ADD_ACTIVE_IMAGES = "ADD_ACTIVE_IMAGES";
 export const ADD_CATEGORIES = "ADD_CATEGORIES";
 
 
 export const Action = (payload, actionType) => {
+    console.log('ACTION', payload, actionType);
     return {
         type: actionType,
         payload

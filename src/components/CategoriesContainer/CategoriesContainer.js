@@ -11,36 +11,31 @@ class CategoriesContainer extends Component {
     };
     render() {
         const categories = this.props.categories.results;
-        let imagesDOM = null;
-        console.log("!!!!!categories", categories);
-        if (categories !== undefined){
-            imagesDOM = categories.map(({title, tags, cover_photo, preview_photos}) => {
-                const tagsList = tags.map((value) => {
-                    return <li>{value.title}</li>
-                });
-                const preview_photosList = preview_photos.map((value) => {
-                    return <img
-                        className="preview-photos__item"
-                        src={value.urls.small}
-                        alt=""
-                    />
-                });
-                return <div key={Math.random()}>
-                    <h1>{title}</h1>
-                    <div className="cover-container">
-                        <img className="cover-container__photo" src={cover_photo.urls.small} alt="cover_photo"/>
-                        <ul>
-                            <h3>Tags</h3>
-                            {tagsList}
-                        </ul>
-                    </div>
-                    <div className="preview-photos">
-                        {preview_photosList}
-                    </div>
-
-                </div>
+        const imagesDOM = categories.map(({title, tags, cover_photo, preview_photos}) => {
+            const tagsList = tags.map((value) => {
+                return <li>{value.title}</li>
             });
-        }
+            const preview_photosList = preview_photos.map((value) => {
+                return <img
+                    className="preview-photos__item"
+                    src={value.urls.small}
+                    alt=""
+                />
+            });
+            return <div key={Math.random()}>
+                <h1>{title}</h1>
+                <div className="cover-container">
+                    <img className="cover-container__photo" src={cover_photo.urls.small} alt="cover_photo"/>
+                    <ul>
+                        <h3>Tags</h3>
+                        {tagsList}
+                    </ul>
+                </div>
+                <div className="preview-photos">
+                    {preview_photosList}
+                </div>
+            </div>
+        });
         return (
             <div>
                 {imagesDOM}
